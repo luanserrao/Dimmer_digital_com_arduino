@@ -5,8 +5,6 @@
 //>>>  arquivos complementares do projeto : https://www.dropbox.com/sh/7kwu0zb2edtqu37/AADPDuygyTI_VljF7Dvz36FQa?dl=0
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
 // --- Bibliotecas Auxiliares ---
 #include <LiquidCrystal.h>                                          //Biblioteca para o display disp
 #include <Wire.h>
@@ -48,11 +46,7 @@ int flag = 0;
 unsigned long tempo = 0 ;                                         //   --__
 long intervalo = 3000 ;                                           //        --   variaveis para calculo de tempo 
 boolean flagclear ;                                               //   __--
-
-
-const int botao =   10;                                          //pino dp Botão para selecionar tela 
-                                   
-
+const int botao =   10;                                          //pino dp Botão para selecionar tela                                    
 // >>>>>>>>  Funções Auxiliares <<<<<<<<<<<
 void selMenu();                                                     //Função para selecionar o tipo de controle 
 void dispMenu();                                                    //Função para mostrar o tipo de controle
@@ -93,8 +87,8 @@ void selMenu()
 {
    if(!digitalRead(botao))   t_butUp   = 0x01;           //Botão Up pressionado? Seta flag  
    
-    if(digitalRead(botao) && t_butUp)                    //Botão Up solto e flag setada?
-    {                                                    //Sim...
+   if(digitalRead(botao) && t_butUp)                    //Botão Up solto e flag setada?
+   {                                                    //Sim...
       t_butUp = 0x00;                                    //Limpa flag
       disp.clear();                                      //Limpa display
       menu++;                                            //Incrementa menu
@@ -160,8 +154,8 @@ void local(){
     
   }
                                                                 
-      valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;     // finaliza o calculo da média e ajusta o valor lido para volts
-       valorCorrente = (valorSensor/sensibilidade);                      // calcula a corrente considerando a sensibilidade do sernsor (185 mV por amper)
+     valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;     // finaliza o calculo da média e ajusta o valor lido para volts
+     valorCorrente = (valorSensor/sensibilidade);                      // calcula a corrente considerando a sensibilidade do sernsor (185 mV por amper)
  
         if(valorCorrente <= 0.095)
         {
@@ -176,10 +170,8 @@ void local(){
     valordaporta = valordaporta + analogRead(sensorTensao); 
   }  
   valorMedia = valordaporta / 1000;
-  
-  valordetensao= valorMedia * 2.685267449;      //43.01   2.603765721
-     
-        potencia = (valordetensao*valorCorrente);
+  valordetensao= valorMedia * 2.685267449;      //43.01   2.603765721   
+  potencia = (valordetensao*valorCorrente);
 
  unsigned long tempoAtual = millis() ;
 
@@ -190,29 +182,29 @@ void local(){
  
     if (flagclear == 0){
      disp.clear();                   /// limpar o lcd
-      disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
-       disp.print("tensao: ");
-        disp.setCursor(7, 0);  
-         disp.print(valordetensao);
-          disp.print(" V" );
-           disp.setCursor(0, 1); 
-            disp.print("Corrente: ");
-             disp.setCursor(10, 1);  
-              disp.print(valorCorrente);
-               disp.print(" A" );
+     disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("tensao: ");
+     disp.setCursor(7, 0);  
+     disp.print(valordetensao);
+     disp.print(" V" );
+     disp.setCursor(0, 1); 
+     disp.print("Corrente: ");
+     disp.setCursor(10, 1);  
+     disp.print(valorCorrente);
+     disp.print(" A" );
 }
-       if (flagclear == 1){
-       disp.clear();                   /// limpar o lcd
-        disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
-         disp.print("BRILHO: ");  // imprime o valor de brilho em %     
-          disp.setCursor(8, 0);  
-           disp.print(brilho);
-            disp.print(" %" );
-        disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
-         disp.print("Pot: ");
-          disp.setCursor(5, 1);  
-           disp.print(potencia);
-            disp.print(" W" );
+    if (flagclear == 1){
+     disp.clear();                   /// limpar o lcd
+     disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
+     disp.print("BRILHO: ");  // imprime o valor de brilho em %     
+     disp.setCursor(8, 0);  
+     disp.print(brilho);
+     disp.print(" %" );
+     disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("Pot: ");
+     disp.setCursor(5, 1);  
+     disp.print(potencia);
+     disp.print(" W" );
 }
   digitalWrite(led1,HIGH);
   digitalWrite(led2,LOW);
@@ -232,13 +224,13 @@ void remoto()   // remoto
   if (x == '-'){                   // se a variavel for = A
    valor = valor - (enc) ;        // valor será = o valor instantaneo + 10 
        if(valor <= 0) valor = 0 ;
-         lamp.set(valor);             // ligar lampada na potencia calculada 
+           lamp.set(valor);             // ligar lampada na potencia calculada 
             bluetooth.print ("Brilho: ");
             bluetooth.print (brilho - (enc) );
             bluetooth.println ("%");
   }
   if (x == '+'){                               
-     valor = valor + (enc) ;                // valor será = o valor instantaneo - 10
+      valor = valor + (enc) ;                // valor será = o valor instantaneo - 10
       if (valor >= 100) valor = 100 ;
       lamp.set(valor);                        //// ligar lampada na potencia calculada 
        bluetooth.print ("Brilho: ");
@@ -247,7 +239,7 @@ void remoto()   // remoto
   }
   
   if (x == '0'){ 
-    valor = 0;                              
+      valor = 0;                              
       lamp.set(valor);                        //// desligar lampada
       bluetooth.println ("desligado");
   }
@@ -255,13 +247,11 @@ void remoto()   // remoto
  if (x == '1'){   
       valor = 100;                        
       lamp.set(valor);                        //// ligar lampada
-       bluetooth.println ("Ligado");
+      bluetooth.println ("Ligado");
      
   }
   if (x == '2'){
 
- 
-    
       bluetooth.println (">>>>>>>>>>>>>>>>>>>>");                               
       bluetooth.print ("Tensao: ");
       bluetooth.print (valordetensao );
@@ -288,7 +278,7 @@ void remoto()   // remoto
   }
  
                                                                    // finaliza o calculo da média quadratica e ajusta o valor lido para volts
-  valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;
+   valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;
    valorCorrente = (valorSensor/sensibilidade);// calcula a corrente considerando a sensibilidade do sernsor (185 mV por amper)
  
     if(valorCorrente <= 0.095){
@@ -306,12 +296,7 @@ void remoto()   // remoto
   valorMedia = valordaporta / 1000;
   
   valordetensao= valorMedia * 2.683481987;     //43.01   2.644410489
-      
-      
-      
-      
-      
-        potencia = (valordetensao*valorCorrente);
+  potencia = (valordetensao*valorCorrente);
 
  unsigned long tempoAtual = millis() ;
 
@@ -322,43 +307,35 @@ void remoto()   // remoto
  
     if (flagclear == 0){
      disp.clear();                   /// limpar o lcd
-      disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
-       disp.print("tensao: ");
-        disp.setCursor(7, 0);  
-         disp.print(valordetensao);
-          disp.print(" V" );
-          disp.setCursor(0, 1); 
-           disp.print("Corrente: ");
-           disp.setCursor(10, 1);  
-             disp.print(valorCorrente);
-               disp.print(" A" );
+     disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("tensao: ");
+     disp.setCursor(7, 0);  
+     disp.print(valordetensao);
+     disp.print(" V" );
+     disp.setCursor(0, 1); 
+     disp.print("Corrente: ");
+     disp.setCursor(10, 1);  
+     disp.print(valorCorrente);
+     disp.print(" A" );
 }
-       if (flagclear == 1){
-         disp.clear();                   /// limpar o lcd
-        disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
-         disp.print("BRILHO: ");  // imprime o valor de brilho em %     
-          disp.setCursor(8, 0);  
-           disp.print(brilho);
-            disp.print(" %" );
-        disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
-         disp.print("Pot: ");
-         disp.setCursor(5, 1);  
-           disp.print(potencia);
-            disp.print(" W" );
-
-
-         
+   if (flagclear == 1){
+     disp.clear();                   /// limpar o lcd
+     disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
+     disp.print("BRILHO: ");  // imprime o valor de brilho em %     
+     disp.setCursor(8, 0);  
+     disp.print(brilho);
+     disp.print(" %" );
+     disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("Pot: ");
+     disp.setCursor(5, 1);  
+     disp.print(potencia);
+     disp.print(" W" );
 
 }
-
-
   digitalWrite(led1,LOW);
   digitalWrite(led2,HIGH);
   digitalWrite(led3,LOW);
-    
-    
-
-
+   
 } //fim do remoto
 
 
@@ -368,11 +345,11 @@ void automatico()
   //>>>>>>>>>>>>>>>>>>>>>>  comando do Potenciometro  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
  int valorLdr = map(analogRead(ldr),0,1023,0,100);
  if (valorLdr <=20)
-     valorLdr = 0;
+      valorLdr = 0;
  if (valorLdr >=90)
-    valorLdr = 100;
-   lamp.set(valorLdr);
-   brilho =valorLdr; 
+       valorLdr = 100;
+       lamp.set(valorLdr);
+       brilho =valorLdr; 
 
 
 
@@ -385,9 +362,9 @@ void automatico()
     valorSensor += pow(sensorValue_aux,2);
   
   }
- // finaliza o calculo da média quadratica e ajusta o valor lido para volts
-  valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;
-   valorCorrente = (valorSensor/sensibilidade);// calcula a corrente considerando a sensibilidade do sernsor (185 mV por amper)
+// finaliza o calculo da média quadratica e ajusta o valor lido para volts
+    valorSensor = (sqrt(valorSensor/ 10000)) * voltsporUnidade;
+    valorCorrente = (valorSensor/sensibilidade);// calcula a corrente considerando a sensibilidade do sernsor (185 mV por amper)
  
     if(valorCorrente <= 0.095){
       valorCorrente = 0;
@@ -410,43 +387,39 @@ void automatico()
 
  unsigned long tempoAtual = millis() ;
 
- if (tempoAtual-tempo >= intervalo ){
-  tempo = tempoAtual;
-    flagclear = !flagclear;  
+    if (tempoAtual-tempo >= intervalo ){
+       tempo = tempoAtual;
+       flagclear = !flagclear;  
 }
  
     if (flagclear == 0){
      disp.clear();                   /// limpar o lcd
-      disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
-       disp.print("tensao: ");
-        disp.setCursor(7, 0);  
-         disp.print(valordetensao);
-          disp.print(" V" );
-          disp.setCursor(0, 1); 
-           disp.print("Corrente: ");
-            disp.setCursor(10, 1);  
-             disp.print(valorCorrente);
-               disp.print(" A" );
+     disp.setCursor(0, 0);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("tensao: ");
+     disp.setCursor(7, 0);  
+     disp.print(valordetensao);
+     disp.print(" V" );
+     disp.setCursor(0, 1); 
+     disp.print("Corrente: ");
+     disp.setCursor(10, 1);  
+     disp.print(valorCorrente);
+     disp.print(" A" );
 }
-       if (flagclear == 1){
-         disp.clear();                   /// limpar o lcd
-        disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
-         disp.print("BRILHO: ");  // imprime o valor de brilho em %     
-          disp.setCursor(8, 0);  
-           disp.print(brilho);
-            disp.print(" %" );
-        disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
-         disp.print("Pot: ");
-         disp.setCursor(5, 1);  
-           disp.print(potencia);
-            disp.print(" W" );
+   if (flagclear == 1){
+     disp.clear();                   /// limpar o lcd
+     disp.setCursor(0, 0);      // posicionar o cusor na coluna 0, linha 0
+     disp.print("BRILHO: ");  // imprime o valor de brilho em %     
+     disp.setCursor(8, 0);  
+     disp.print(brilho);
+     disp.print(" %" );
+     disp.setCursor(0, 1);           // posicionar o cusor na coluna 0, linha 0
+     disp.print("Pot: ");
+     disp.setCursor(5, 1);  
+     disp.print(potencia);
+     disp.print(" W" );
 }
-
-
   digitalWrite(led1,LOW);
   digitalWrite(led2,LOW);
   digitalWrite(led3,HIGH);
 
-
 } // fim do menu 
-
